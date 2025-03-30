@@ -5,6 +5,7 @@ const countdown = document.getElementById('countdown');
 const result = document.getElementById('result');
 const restart = document.getElementById('restart');
 console.log('getElementById',userInput,countdown,result,restart);
+const randomNumberID = document.getElementById('randomNumberID');
 
 
 // 2. Introduce un número del 1 al 3 en el campo de entrada.
@@ -59,7 +60,7 @@ function setRandomNumer (playerNumber) {
 // 4. Después de la cuenta atrás, el juego evaluará el número introducido.
 function compareNumbers (playerNumber, randonNumber) {
     console.log(`Llegod el playerNumber ${playerNumber} y el randonNumber ${randonNumber}`);
-    if (playerNumber === randonNumber) {
+    if (playerNumber == randonNumber) {
         showResults ('win');
     } else {
         result.innerHTML = `<p>La bomba ha estallado</p>`
@@ -70,21 +71,35 @@ function compareNumbers (playerNumber, randonNumber) {
     // y junto con el número correcto (el generado aleatoriamente). 
     // No se sabrá que número es hasta que pasen 5 segundos.
     setTimeout(() => {
-        result.innerHTML = `<p>Tu numero: ${playerNumber} y el numero aleatorio ${randonNumber}</p>`;
+       // result.innerHTML = `<p>Tu numero: ${playerNumber} y el numero aleatorio ${randonNumber}</p>`;
+        randomNumberID.innerHTML = `<p class="num-imput">${randonNumber} </p>`;
       }, "1000");
 };
 
+const customNumPlayer = document.querySelectorAll('.custom-num')[0];
+const customNumBomb = document.querySelectorAll('.custom-num')[1];
+const star = document.querySelector('.star');
 /**5. Se mostrará un mensaje indicando si has salvado el mundo 
    o si la bomba ha estallado. 
     // Si coinciden, se muestra un mensaje de "¡Has salvado el mundo!", 
     // de lo contrario, se muestra "La bomba ha estallado".*/
 function showResults (string) {
-    if (string === 'win') {
+    if (string == 'win') {
         console.log("¡Has salvado el mundo!");
-        result.innerHTML = `<p>¡Has salvado el mundo!</p>`
-    } else if (string === 'lose') {
+        result.innerHTML = `<p>¡Has salvado el mundo!</p>`;
+        setTimeout(() => {
+            customNumPlayer.style.backgroundColor = "green";
+            customNumBomb.style.backgroundColor = "green";
+            star.style.background = "none";
+           }, "1000");
+    } else if (string == 'lose') {
         console.log("La bomba ha estallado");
-        result.innerHTML = `<p>La bomba ha estallado</p>`
+        result.innerHTML = `<p>La bomba ha estallado</p>`;
+        setTimeout(() => {
+            customNumPlayer.style.backgroundColor = "red";
+            customNumBomb.style.backgroundColor = "red";
+            star.style.animation = "starAnimation 4s";
+           }, "1000");
     }; 
 };
 
@@ -99,3 +114,41 @@ restart.addEventListener('click', () => {
     //clearTimeout();
     window.location.reload();
 });
+
+const customNum = document.querySelector('.custom-num');
+console.log(customNum)
+const numImput = customNum.querySelector('.num-imput');
+const arrUp = customNum.querySelector('.arr-up');
+const arrDown = customNum.querySelector('.arr-down');
+
+arrUp.addEventListener('click', () => {
+    numImput.stepUp();
+    checkMaxMin();
+});
+arrDown.addEventListener('click', () => {
+    numImput.stepDown();
+    checkMaxMin();
+});
+numImput.addEventListener('input', checkMaxMin);
+
+function checkMaxMin () {
+    const numImputValue = parseInt(numImput.value);
+    const numImputMax = parseInt(numImput.max);
+    const numImputMin = parseInt(numImput.min);
+
+    if (numImputValue === numImputMax) {
+        customNum.style.paddingTop = "1.8em";
+        arrUp.style.display = "none";
+        customNum.style.paddingBottom = "0";
+        arrDown.style.display = "block";
+    } else if (numImputValue === numImputMin) {
+        customNum.style.paddingBottom = "1.8em";
+        arrDown.style.display = "none";
+        customNum.style.paddingTop = "0";
+        arrUp.style.display = "block";
+    } else {
+        customNum.style.padding = "0";
+        arrUp.style.display = "block";
+        arrDown.style.display = "block"; 
+    }
+};

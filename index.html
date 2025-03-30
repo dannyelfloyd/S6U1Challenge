@@ -7,14 +7,30 @@
   <title>Bomba Game</title>
 </head>
 <body>
-  <h1>Bomba Game</h1>
-  <p>Introduce un número del 1 al 3 y pulsa enter o clicka fuera del cuadrado:</p>
-  <input type="number" placeholder="0" id="userInput" min="1" max="3">
+  <header>
+    <h1>Bomb 💣 Game</h1>
+    <p>Introduce un número del 1 al 3 y pulsa enter o clicka fuera del cuadrado:</p>
+  </header>
+  <section class="bombContainer">
+    <div class="custom-num">
+      <i class="fas fa-angle-up arr-up"></i>
+      <input type="number" id="userInput" min="1" max="3" class="num-imput">
+      <i class="fas fa-angle-down arr-down"></i>
+    </div>
+    <div class="custom-num" id="randomNumberID"></div>
+    <div class="bomb">
+      <div class="circule"></div>
+      <div class="star"></div>
+      <div class="arc"></div>
+      <div class="row"></div>
+    </div>
+  </section>
+ 
   <div id="countdown"></div>
   <div id="result"></div>
+  
   <button id="restart">Reiniciar Juego</button>
 
-<script src="./js/script.js"></script>
-
+  <script src="./js/script.js"></script>
 </body>
 </html>

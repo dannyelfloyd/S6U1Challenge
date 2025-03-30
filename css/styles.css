@@ -1,17 +1,179 @@
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f0f0f0;
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-weight: 100;
+}
+:root {
+  --clr-primary: rgb(75, 3, 75);
+  --clr-secondary: #ff822d;
+  --clr-white: rgba(211, 199, 199, 0.801);
+  --clr-black: black;
 }
 
-h1 {
-  color: #333;
+
+body {
+  background-color: var(--clr-white);
+  color: var(--clr-black);
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: wrap;
 }
-#result .green {
-  color: #2ecc71;
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 30px;
+  h1, p {
+    align-self: center;
+  }
+}
+.bombContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 100px;  
+}
+#countdown, #result {
+  text-align: center;
 }
 
-#result .red {
-  color: #e74c3c;
+/*BOBM SHAPE*/
+.bomb {
+  position: absolute;
+  z-index: -1;
 }
+.circule {
+  width: 220px;
+  height: 220px;
+  background: var(--clr-primary); 
+  -moz-border-radius: 150px; 
+  -webkit-border-radius: 150px; 
+  border-radius: 150px;
+}
+.star { 
+  width: 110px; /* adjust to control the size */
+  aspect-ratio: 1;
+  clip-path: polygon(100% 50%,78.98% 57.76%,93.3% 75%,71.21% 71.21%,75% 93.3%,57.76% 78.98%,50% 100%,42.24% 78.98%,25% 93.3%,28.79% 71.21%,6.7% 75%,21.02% 57.76%,0% 50%,21.02% 42.24%,6.7% 25%,28.79% 28.79%,25% 6.7%,42.24% 21.02%,50% 0%,57.76% 21.02%,75% 6.7%,71.21% 28.79%,93.3% 25%,78.98% 42.24%);
+  background-color: var(--clr-secondary);
+  position: absolute;
+  z-index: -2;
+  top: -50px;
+  left: 130px;
+}
+@keyframes starAnimation {
+  0% {transform: scale();}
+
+  50% {transform: scale(8);}
+
+  100% {transform: scale();}
+}
+.arc {
+  --b: 6px; /* the boder thickness */
+  --a: 90deg; /* control the progression */
+  
+  width: 190px;
+  aspect-ratio: 1;
+  padding: var(--b);
+  border-radius: 50%;
+  background: rgb(173, 81, 173);
+  --_g:/var(--b) var(--b) no-repeat
+    radial-gradient(50% 50%,#000 97%,#0000);
+  mask: top var(--_g),
+    calc(50% + 50%*sin(var(--a))) 
+    calc(50% - 50%*cos(var(--a))) var(--_g),
+    linear-gradient(#0000 0 0) content-box intersect,
+    conic-gradient(#000 var(--a),#0000 0);
+  position: absolute;
+  bottom: 10px;
+  left: 18px;
+  rotate: 90deg;
+}
+.row {
+  height: 15px;
+  width: 50px;
+  aspect-ratio: 1;
+  background: white;
+  position: absolute;
+  z-index: -2;
+  rotate: 130deg;
+  top: 0px;
+  left: 158px;
+  border-radius: 20%;
+}
+
+/*CUSTOMIZE NUMBER BOX*/
+.custom-num{
+  margin: 0.5em;
+  display: flex;
+  width: 3em;
+  height: 5em;
+  border: 1px #fff solid;
+  border-radius: 3em;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  transition: 0.3s;
+}
+.num-imput::-webkit-outer-spin-button,
+.num-imput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.num-imput {
+  font-size: 1em;
+  text-align: center;
+  background: none;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  width: 100%;
+}
+.num-imput {
+  outline: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.custom-num i {
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #fff;
+}
+#randomNumberID {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+/* BUTTON */
+#restart{
+  appearance: none;
+  background: none;
+  border: none;
+  outline: none;
+
+  color: var(--clr-secondary);
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin: 20px;
+
+  transition: 0.4s ease-out;
+  opacity: 0.5;
+}
+
+#restart:hover{
+  opacity: 1;
+  color: var(--clr-primary);
+}
+#restart:active{
+  transform: scale(1.1);
+  color: var(--clr-secondary);
+  transition: 0.1s ease-in;
+}
+
+
